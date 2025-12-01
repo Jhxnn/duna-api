@@ -1,5 +1,7 @@
 package com.dune.model;
 
+import com.dune.model.enums.TaskPriority;
+import com.dune.model.enums.TaskStatus;
 import jakarta.persistence.*;
 import java.util.UUID;
 
@@ -22,9 +24,9 @@ public class Task {
 
     private int size;
 
-    private boolean completed;
+    private TaskStatus status;
 
-    private int priority;
+    private TaskPriority priority;
 
     public UUID getTaskId() {
         return taskId;
@@ -66,19 +68,19 @@ public class Task {
         this.size = size;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public TaskStatus getStatus() {
+        return status;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
-    public int getPriority() {
+    public TaskPriority getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(TaskPriority priority) {
         this.priority = priority;
     }
 }
