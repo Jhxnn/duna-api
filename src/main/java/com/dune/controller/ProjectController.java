@@ -1,4 +1,4 @@
 package com.dune.controller;
 
-public class ProjectController g{
+public class ProjectController{
 }
