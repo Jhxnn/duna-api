@@ -28,6 +28,27 @@ public class Task {
 
     private TaskPriority priority;
 
+    private int orderIndex;
+
+    //random value 100-500
+    private int pointValue;
+
+    public int getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
+    public int getPointValue() {
+        return pointValue;
+    }
+
+    public void setPointValue(int pointValue) {
+        this.pointValue = pointValue;
+    }
+
     public UUID getTaskId() {
         return taskId;
     }

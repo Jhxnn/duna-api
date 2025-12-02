@@ -25,6 +25,7 @@ public class Project {
 
     private LocalDateTime updatedAt;
 
+
     @JoinColumn(referencedColumnName = "id", name = "owner_id")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private User owner;
