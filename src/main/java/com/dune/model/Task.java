@@ -3,6 +3,8 @@ package com.dune.model;
 import com.dune.model.enums.TaskPriority;
 import com.dune.model.enums.TaskStatus;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -32,6 +34,26 @@ public class Task {
 
     //random value 100-500
     private int pointValue;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public int getOrderIndex() {
         return orderIndex;
