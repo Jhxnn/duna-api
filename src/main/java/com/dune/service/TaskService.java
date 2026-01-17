@@ -1,4 +1,7 @@
 package com.dune.service;
 
-public class TaskService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class TaskService    {
 }

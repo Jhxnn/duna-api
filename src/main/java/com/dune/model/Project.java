@@ -29,6 +29,7 @@ public class Project {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private User owner;
 
+
     public UUID getProjectId() {
         return projectId;
     }

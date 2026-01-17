@@ -1,4 +1,9 @@
 package com.dune.repository;
 
-public interface UserRepository {
+import com.dune.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface UserRepository extends JpaRepository<User, UUID> {
 }

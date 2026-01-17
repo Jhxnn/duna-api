@@ -1,4 +1,6 @@
 package com.dune.dto;
 
-public record ProjectDto() {
+import java.util.UUID;
+
+public record ProjectDto(String name, String description) {
 }

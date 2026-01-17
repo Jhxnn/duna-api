@@ -1,4 +1,9 @@
 package com.dune.dto;
 
-public class TaskDto {
+import com.dune.model.enums.TaskPriority;
+import com.dune.model.enums.TaskStatus;
+
+import java.util.UUID;
+
+public record TaskDto(String title, String description, TaskStatus status, TaskPriority priority, UUID projectId) {
 }
