@@ -5,5 +5,5 @@ import com.dune.model.enums.TaskStatus;
 
 import java.util.UUID;
 
-public record TaskDto(String title, String description, TaskStatus status, TaskPriority priority, UUID projectId) {
+public record TaskDto(String title, String details, TaskStatus status, TaskPriority priority, UUID projectId) {
 }
