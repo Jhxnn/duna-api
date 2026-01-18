@@ -30,16 +30,6 @@
         }
 
         @Bean
-        public Queue projectSaveQueue() {
-            return new Queue("project.save.queue", true);
-        }
-
-        @Bean
-        public Queue projectUpdateQueue() {
-            return new Queue("project.update.queue", true);
-        }
-
-        @Bean
         public Binding taskSaveBinding() {
             return BindingBuilder
                     .bind(taskSaveQueue())
@@ -55,21 +45,6 @@
                     .with("task.update");
         }
 
-        @Bean
-        public Binding projectSaveBinding() {
-            return BindingBuilder
-                    .bind(projectSaveQueue())
-                    .to(exchange())
-                    .with("project.save");
-        }
-
-        @Bean
-        public Binding projectUpdateBinding() {
-            return BindingBuilder
-                    .bind(projectUpdateQueue())
-                    .to(exchange())
-                    .with("project.update");
-        }
         @Bean
         public MessageConverter jsonMessageConverter() {
             return new JacksonJsonMessageConverter();

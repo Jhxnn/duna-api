@@ -1,6 +1,7 @@
 package com.dune.messaging.consumer;
 
 import com.dune.dto.TaskDto;
+import com.dune.dto.TaskUpdateDto;
 import com.dune.service.TaskService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class TaskConsumer {
     }
 
     @RabbitListener(queues = "task.update.queue")
-    public void receiveUpdate(TaskDto dto) {
+    public void receiveUpdate(TaskUpdateDto dto) {
         taskService.processUpdate(dto);
     }
 }

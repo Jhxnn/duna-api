@@ -1,6 +1,7 @@
 package com.dune.messaging.producer;
 
 import com.dune.dto.TaskDto;
+import com.dune.dto.TaskUpdateDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +22,12 @@ public class TaskProducer {
         );
     }
 
-    public void sendToUpdate(TaskDto task) {
-        rabbitTemplate.convertAndSend(
-                "app.exchange",
-                "task.update",
-                task
-        );
-    }
+        public void sendToUpdate(TaskUpdateDto task) {
+            rabbitTemplate.convertAndSend(
+                    "app.exchange",
+                    "task.update",
+                    task
+            );
+        }
 }
 
