@@ -2,16 +2,13 @@
 
     import com.dune.dto.TaskDto;
     import com.dune.dto.TaskUpdateDto;
+    import com.dune.exception.BadRequestException;
     import com.dune.messaging.producer.TaskProducer;
     import com.dune.model.Task;
     import com.dune.repository.ProjectRepository;
     import com.dune.repository.TaskRepository;
-    import org.apache.coyote.BadRequestException;
     import org.springframework.beans.BeanUtils;
     import org.springframework.stereotype.Service;
-
-    import java.util.UUID;
-
 
     @Service
     public class TaskService {
@@ -34,8 +31,7 @@
         }
         public void requestCreate(TaskDto taskDto){
             if(!projectRepository.existsById(taskDto.projectId())){
-                System.out.println("Project with ID " + taskDto.projectId() + " does not exist.");
-                return;
+                throw new BadRequestException("Project with ID " + taskDto.projectId() + " does not exist.");
             }
             taskProducer.sendToSave(taskDto);
         }
