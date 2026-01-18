@@ -10,6 +10,8 @@
     import org.springframework.beans.BeanUtils;
     import org.springframework.stereotype.Service;
 
+    import java.time.LocalDateTime;
+
     @Service
     public class TaskService {
 
@@ -26,6 +28,9 @@
         public void processCreate(TaskDto taskDto){
             Task task = new Task();
             BeanUtils.copyProperties(taskDto, task);
+            task.setCreatedAt(LocalDateTime.now());
+            task.setPointValue(task.getDetails().length());
+            task.setSize(0);
             task.setProject(projectRepository.findById(taskDto.projectId()).orElse(null));
             taskRepository.save(task);
         }
