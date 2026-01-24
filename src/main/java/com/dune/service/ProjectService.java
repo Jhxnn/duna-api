@@ -47,5 +47,12 @@ public class ProjectService {
                 .orElseThrow(() -> new IllegalStateException("Project with ID " + projectId + " does not exist."));
         return new ProjectResponseDto(project.getName(), project.getDescription());
     }
+    public ProjectResponseDto updateProject(ProjectDto projectDto, UUID projectId){
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalStateException("Project with ID " + projectId + " does not exist."));
+        BeanUtils.copyProperties(projectDto, project, "id");
+        projectRepository.save(project);
+        return new ProjectResponseDto(project.getName(), project.getDescription());
+    }
 
 }
