@@ -1,17 +1,20 @@
     package com.dune.service;
 
     import com.dune.dto.TaskDto;
+    import com.dune.dto.TaskResponseDto;
     import com.dune.dto.TaskUpdateDto;
     import com.dune.exception.BadRequestException;
     import com.dune.messaging.producer.TaskProducer;
     import com.dune.model.Project;
     import com.dune.model.Task;
+    import com.dune.model.enums.TaskStatus;
     import com.dune.repository.ProjectRepository;
     import com.dune.repository.TaskRepository;
     import org.springframework.beans.BeanUtils;
     import org.springframework.stereotype.Service;
 
     import java.time.LocalDateTime;
+    import java.util.UUID;
 
     @Service
     public class TaskService {
@@ -19,10 +22,12 @@
         private final TaskRepository taskRepository;
         private final ProjectRepository projectRepository;
         private final TaskProducer taskProducer;
+        private final DuneService duneService;
 
-        public TaskService(TaskRepository taskRepository, TaskProducer taskProducer, ProjectRepository projectRepository) {
+        public TaskService(TaskRepository taskRepository,DuneService duneService, TaskProducer taskProducer, ProjectRepository projectRepository) {
             this.taskProducer = taskProducer;
             this.taskRepository = taskRepository;
+            this.duneService = duneService;
             this.projectRepository = projectRepository;
         }
 
@@ -45,6 +50,22 @@
             }
             taskProducer.sendToSave(taskDto);
         }
+
+        public TaskResponseDto updateStatus(UUID taskId, TaskStatus status){
+            Task task = taskRepository.findById(taskId)
+                    .orElseThrow(() -> new IllegalStateException("Task with ID " + taskId + " does not exist."));
+            if(status.equals(TaskStatus.DONE)){
+                duneService.addPointsToDune(task.getPointValue());
+            }
+            if(task.getStatus() == TaskStatus.DONE && !status.equals(TaskStatus.DONE)){
+                duneService.removePointsToDune(task.getPointValue());
+            }
+            task.setStatus(status);
+            task.setUpdatedAt(LocalDateTime.now());
+            taskRepository.save(task);
+            return new TaskResponseDto(task.getTaskId(), task.getTitle(), task.getDetails(),task.getStatus(), task.getPriority(), task.getProject().getName());
+        }
+
         public void processUpdate(TaskUpdateDto dto) {
             Task task = taskRepository.findById(dto.taskId())
                     .orElseThrow(() ->

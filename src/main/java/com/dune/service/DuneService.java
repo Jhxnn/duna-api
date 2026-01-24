@@ -32,4 +32,10 @@ public class DuneService {
         dune.setTotalPoints(dune.getTotalPoints() + points);
         duneRepository.save(dune);
     }
+
+    public void removePointsToDune(int points){
+        Dune dune = duneRepository.findByUser(new User());
+        dune.setTotalPoints(dune.getTotalPoints() - points);
+        duneRepository.save(dune);
+    }
 }
