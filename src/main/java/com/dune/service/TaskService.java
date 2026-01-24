@@ -7,6 +7,7 @@
     import com.dune.messaging.producer.TaskProducer;
     import com.dune.model.Project;
     import com.dune.model.Task;
+    import com.dune.model.enums.TaskPriority;
     import com.dune.model.enums.TaskStatus;
     import com.dune.repository.ProjectRepository;
     import com.dune.repository.TaskRepository;
@@ -61,6 +62,15 @@
                 duneService.removePointsToDune(task.getPointValue());
             }
             task.setStatus(status);
+            task.setUpdatedAt(LocalDateTime.now());
+            taskRepository.save(task);
+            return new TaskResponseDto(task.getTaskId(), task.getTitle(), task.getDetails(),task.getStatus(), task.getPriority(), task.getProject().getName());
+        }
+
+        public TaskResponseDto updatePriority(UUID taskId, TaskPriority priority){
+            Task task = taskRepository.findById(taskId)
+                    .orElseThrow(() -> new IllegalStateException("Task with ID " + taskId + " does not exist."));
+            task.setPriority(priority);
             task.setUpdatedAt(LocalDateTime.now());
             taskRepository.save(task);
             return new TaskResponseDto(task.getTaskId(), task.getTitle(), task.getDetails(),task.getStatus(), task.getPriority(), task.getProject().getName());
