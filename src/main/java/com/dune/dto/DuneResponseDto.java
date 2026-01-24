@@ -1,4 +1,4 @@
 package com.dune.dto;
 
-public record DuneResponseDto() {
+public record DuneResponseDto(int totalPoints) {
 }

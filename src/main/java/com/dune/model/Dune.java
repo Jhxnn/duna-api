@@ -14,7 +14,7 @@ public class Dune {
     @Column(name = "id")
     private UUID duneId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "id", name = "owner_id")
     private User owner;
 
