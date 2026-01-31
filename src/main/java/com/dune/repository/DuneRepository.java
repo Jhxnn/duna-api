@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface DuneRepository extends JpaRepository<Dune, UUID> {
 
-    Dune findByUser(User user);
+    Dune findByOwner(User owner);
 }
